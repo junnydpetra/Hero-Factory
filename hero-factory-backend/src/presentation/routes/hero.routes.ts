@@ -1,18 +1,16 @@
 import { Router } from 'express';
-import { HeroRepository } from '../../infra/repositories/HeroRepository';
-import { HeroService } from '../../application/services/HeroService';
-import { HeroController } from '../controllers/HeroController';
+import { makeHeroController } from '../../main/factories/makeHeroController';
+import { validate } from '../middlewares/validate';
+import { createHeroSchema, updateHeroSchema } from '../../application/validators/hero.schemas';
 
-const heroRepository = new HeroRepository();
-const heroService = new HeroService(heroRepository);
-const heroController = new HeroController(heroService);
+const heroController = makeHeroController();
 
 const heroRoutes = Router();
 
-heroRoutes.post('/', heroController.create.bind(heroController));
+heroRoutes.post('/', validate(createHeroSchema), heroController.create.bind(heroController));
 heroRoutes.get('/', heroController.list.bind(heroController));
 heroRoutes.get('/:id', heroController.show.bind(heroController));
-heroRoutes.patch('/:id', heroController.update.bind(heroController));
+heroRoutes.patch('/:id', validate(updateHeroSchema), heroController.update.bind(heroController));
 heroRoutes.delete('/:id', heroController.delete.bind(heroController));
 heroRoutes.patch('/:id/reactivate', heroController.reactivate.bind(heroController));
 

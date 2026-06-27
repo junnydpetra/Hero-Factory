@@ -2,9 +2,10 @@ import { pool } from '../../config/database';
 import { CreateHeroDTO } from '../../application/dtos/CreateHeroDTO';
 import { UpdateHeroDTO } from '../../application/dtos/UpdateHeroDTO';
 import { HeroResponseDTO } from '../../application/dtos/HeroResponseDTO';
+import { IHeroRepository } from '../../domain/repositories/IHeroRepository';
 import { RowDataPacket, ResultSetHeader, ExecuteValues } from 'mysql2';
 
-export class HeroRepository {
+export class HeroRepository implements IHeroRepository {
 
     async create(data: CreateHeroDTO): Promise<HeroResponseDTO> {
         const {

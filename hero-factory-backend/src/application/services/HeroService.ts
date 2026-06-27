@@ -1,19 +1,14 @@
 import { randomUUID } from 'node:crypto';
-import { HeroRepository } from '../../infra/repositories/HeroRepository';
+import { IHeroRepository } from '../../domain/repositories/IHeroRepository';
 import { CreateHeroDTO } from '../dtos/CreateHeroDTO';
 import { UpdateHeroDTO } from '../dtos/UpdateHeroDTO';
 import { HeroResponseDTO } from '../dtos/HeroResponseDTO';
 import { AppError } from '../errors/AppError';
 
 export class HeroService {
-    constructor(private readonly heroRepository: HeroRepository) { }
+    constructor(private readonly heroRepository: IHeroRepository) { }
 
     async createHero(data: CreateHeroDTO): Promise<HeroResponseDTO> {
-
-        if (!data.name || !data.nickname || !data.date_of_birth || !data.universe || !data.main_power) {
-            throw new AppError('Campos obrigatórios: name, nickname, date_of_birth, universe, main_power', 400);
-        }
-
         const id = randomUUID();
 
         const newHero = await this.heroRepository.create({

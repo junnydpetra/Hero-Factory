@@ -1,0 +1,16 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        'hero-bg': '#F5F0EB',
+        'hero-blue': '#003399',
+      }
+    },
+  },
+  plugins: [],
+}
