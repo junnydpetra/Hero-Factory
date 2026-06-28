@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ModalBase } from './ModalBase';
 import { heroService } from '../../services/heroService';
+import toast from 'react-hot-toast';
 
 interface CreateHeroModalProps {
   isOpen: boolean;
@@ -26,7 +27,7 @@ export function CreateHeroModal({ isOpen, onClose, onSuccess }: CreateHeroModalP
       onSuccess();
       onClose();
     } catch (error) {
-      console.error('Erro ao criar herói');
+      toast.error('Erro ao salvar o herói. Verifique os dados e tente novamente.');
     } finally {
       setLoading(false);
     }

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { ModalBase } from './ModalBase';
 import type { Hero } from '../../types/Hero';
 import { heroService } from '../../services/heroService';
+import toast from 'react-hot-toast';
 
 interface EditHeroModalProps {
   isOpen: boolean;
@@ -42,7 +43,7 @@ export function EditHeroModal({ isOpen, hero, onClose, onSuccess }: EditHeroModa
       onSuccess();
       onClose();
     } catch (error) {
-      console.error('Erro ao editar herói');
+      toast.error('Erro ao salvar o herói. Verifique os dados e tente novamente.');
     } finally {
       setLoading(false);
     }

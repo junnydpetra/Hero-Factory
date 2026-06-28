@@ -2,6 +2,7 @@ import { createContext, useState, useContext, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import type { Hero } from '../types/Hero';
 import { heroService } from '../services/heroService';
+import toast from 'react-hot-toast';
 
 interface HeroContextData {
   heroes: Hero[];
@@ -31,6 +32,7 @@ export function HeroProvider({ children }: { children: ReactNode }) {
       setTotalPages(Math.ceil(response.total / 10)); 
     } catch (error) {
       console.error('Erro ao buscar heróis:', error);
+      toast.error('Erro ao carregar a lista de heróis.');
     } finally {
       setLoading(false);
     }
