@@ -9,6 +9,7 @@ interface HeroDetailsModalProps {
 
 export function HeroDetailsModal({ isOpen, hero, onClose }: HeroDetailsModalProps) {
   if (!hero) return null;
+  const [ano, mes, dia] = hero.date_of_birth.split(' ')[0].split('-');
 
   return (
     <ModalBase isOpen={isOpen} onClose={onClose} title={hero.nickname}>
@@ -26,8 +27,7 @@ export function HeroDetailsModal({ isOpen, hero, onClose }: HeroDetailsModalProp
           </div>
           <div>
             <p className="text-sm font-semibold text-gray-500 uppercase">Data de nascimento</p>
-            const [ano, mes, dia] = hero.date_of_birth.split(' ')[0].split('-');
-            <p className="text-gray-800">{new Date(hero.date_of_birth).toLocaleDateString('pt-BR')}</p>
+            <p className="text-gray-800">{`${dia}/${mes}/${ano}`}</p>
           </div>
           <div>
             <p className="text-sm font-semibold text-gray-500 uppercase">Universo</p>
