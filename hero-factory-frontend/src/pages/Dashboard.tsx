@@ -138,7 +138,21 @@ export function Dashboard() {
             disabled={currentPage === 1}
             className="px-3 py-1 bg-white rounded shadow-sm text-gray-600 disabled:opacity-50"
           >{'<'}</button>
-          <span className="px-4 py-1 bg-hero-blue text-white rounded shadow-sm font-medium">{currentPage}</span>
+
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`px-4 py-1 rounded shadow-sm font-medium transition-colors ${
+                page === currentPage
+                  ? 'bg-hero-blue text-white'
+                  : 'bg-white text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+
           <button 
             onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}
