@@ -1,4 +1,6 @@
-CREATE TABLE IF NOT EXISTS heroes (
+DROP TABLE IF EXISTS heroes;
+
+CREATE TABLE heroes (
     id VARCHAR(36) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     nickname VARCHAR(255) NOT NULL,
@@ -10,3 +12,9 @@ CREATE TABLE IF NOT EXISTS heroes (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+CREATE INDEX idx_heroes_active_created
+    ON heroes (is_active, created_at);
+
+CREATE INDEX idx_heroes_search
+    ON heroes (name, nickname);
