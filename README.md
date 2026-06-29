@@ -151,4 +151,4 @@ npm run test:ui              # Vitest com interface visual
 - ✅ **Testes automatizados de frontend (Vitest + Testing Library)**
 - ✅ **Índice composto para a query de listagem/paginação**
 - ✅ **Banco de dados dedicado para os testes de integração**
-- ✅ **Documentação interativa via Swagger/OpenAPI**
+- ✅ **Documentação interativa via Swagger/OpenAPI (ver rota /api-docs/)**
