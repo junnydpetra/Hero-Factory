@@ -20,21 +20,39 @@ export function CreateHeroModal({ isOpen, onClose, onSuccess }: CreateHeroModalP
     avatar_url: ''
   });
 
+  const resetForm = () => {
+    setForm({
+      name: '',
+      nickname: '',
+      date_of_birth: '',
+      universe: '',
+      main_power: '',
+      avatar_url: ''
+    });
+  };
+
   const handleSubmit = async () => {
     setLoading(true);
     try {
       await heroService.create(form);
       onSuccess();
+      resetForm();
       onClose();
     } catch (error) {
+      console.error('Erro ao criar herói:', error);
       toast.error('Erro ao salvar o herói. Verifique os dados e tente novamente.');
     } finally {
       setLoading(false);
     }
   };
 
+  const handleClose = () => {
+    resetForm();
+    onClose();
+  };
+
   return (
-    <ModalBase isOpen={isOpen} onClose={onClose} title="Criar herói" isLoading={loading}>
+    <ModalBase isOpen={isOpen} onClose={handleClose} title="Criar herói" isLoading={loading}>
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Nome completo</label>
@@ -101,7 +119,7 @@ export function CreateHeroModal({ isOpen, onClose, onSuccess }: CreateHeroModalP
         </div>
         <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 mt-4">
           <button 
-            onClick={onClose} 
+            onClick={handleClose}
             className="px-6 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition"
             disabled={loading}
           >
